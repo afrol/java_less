@@ -1,6 +1,7 @@
 package less_10;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -9,12 +10,12 @@ public class Contact {
     private LocalDate dateOfBirth;
     ArrayList<String> phones = new ArrayList<>();
     private String address;
-    private LocalDate updatedDate;
+    private LocalDateTime updatedDate;
 
     public Contact() {
     }
 
-    public Contact(String name, LocalDate dateOfBirth, ArrayList<String> phones, String address, LocalDate updatedDate) {
+    public Contact(String name, LocalDate dateOfBirth, ArrayList<String> phones, String address, LocalDateTime updatedDate) {
         this.name = name;
         this.dateOfBirth = dateOfBirth;
         this.phones = phones;
@@ -26,7 +27,7 @@ public class Contact {
         this.name = name;
         this.dateOfBirth = dateOfBirth;
         this.address = address;
-        updatedDate = LocalDate.now();
+        updatedDate = LocalDateTime.now();
     }
 
     public String getName() {
@@ -73,11 +74,11 @@ public class Contact {
         this.address = address;
     }
 
-    public LocalDate getUpdatedDate() {
+    public LocalDateTime getUpdatedDate() {
         return updatedDate;
     }
 
-    public void setUpdatedDate(LocalDate updatedDate) {
+    public void setUpdatedDate(LocalDateTime updatedDate) {
         this.updatedDate = updatedDate;
     }
 

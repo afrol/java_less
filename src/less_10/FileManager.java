@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class FileManager {
@@ -21,7 +22,9 @@ public class FileManager {
         mapper.enable(SerializationFeature.INDENT_OUTPUT);
         SimpleModule module = new SimpleModule();
         module.addSerializer(LocalDate.class, new LocalDateSerializer());
+        module.addSerializer(LocalDateTime.class, new LocalDateTimeSerializer());
         module.addDeserializer(LocalDate.class, new LocalDateDeserializer());
+        module.addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer());
         mapper.registerModule(module);
     }
 
@@ -56,12 +59,13 @@ public class FileManager {
     public ArrayList<Contact> load(String name) {
         try {
             String stringObj = new String(Files.readAllBytes(Paths.get(resolveFilePath(name))));
-
-            return mapper.readValue(stringObj, new TypeReference<ArrayList<Contact>>() {});
+            if (!stringObj.isEmpty()) {
+                return mapper.readValue(stringObj, new TypeReference<ArrayList<Contact>>() {});
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
+        return new ArrayList<>();
     }
 
     private String resolveFilePath(String name) {
