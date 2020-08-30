@@ -1,7 +1,6 @@
 package less_11;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import static java.lang.Thread.sleep;
 
@@ -26,15 +25,17 @@ public class Main {
 
     private static class Print implements Runnable {
         @Override
-        public void run() {
-            for (int i = 0; i < 5; i++) {
-                try {
-                    sleep(100);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+        public synchronized void run() {
+            synchronized (Print.class) {
+                for (int i = 0; i < 5; i++) {
+                    try {
+                        sleep(100);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
 
-                System.out.println(Thread.currentThread().getName() + " Print: " + i);
+                    System.out.println(Thread.currentThread().getName() + " Print: " + i);
+                }
             }
         }
     }
